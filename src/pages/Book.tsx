@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { useBooks } from "../hooks/useBibleData";
 import { BookOpen, ChevronRight } from "lucide-react";
 import BookSkeleton from "../components/Skeleton/BookSkeleton";
+import PageHeader from "../components/PageHeader";
 
 const BookPage = () => {
     const { bibleId } = useParams<{ bibleId: string }>();
@@ -13,13 +14,10 @@ const BookPage = () => {
         <>
 
             <div className="max-w-7xl mx-auto p-6">
-                <div className="pb-[50px]">
-                    <h1 className="text-3xl font-bold font-serif flex items-center gap-3">
-                        <BookOpen className="text-indigo-400" />
-                        Select a Book
-                    </h1>
-                    <p className="text-gray-400 mt-2">Choose a book to begin reading</p>
-                </div>
+                <PageHeader
+                    title="Select a Book"
+                    description="Choose a book to begin reading"
+                />
                 {
                     isLoading ? (
                         <BookSkeleton />

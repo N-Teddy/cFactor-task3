@@ -1,61 +1,44 @@
-import { ChevronRight, Home } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { BookOpen, ChevronLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
-interface BreadcrumbItem {
-    name: string;
-    path?: string;
-}
+
 
 interface PageHeaderProps {
     title: string;
-    breadcrumbs: BreadcrumbItem[];
     description?: string;
 }
 
-const PageHeader = ({ title, breadcrumbs, description }: PageHeaderProps) => {
+const PageHeader = ({ title, description }: PageHeaderProps) => {
+
+    const navigate = useNavigate();
+
+
     return (
-        <header className="mb-10">
-            <nav className="flex items-center mb-5">
-                <div className="flex items-center space-x-1 bg-surface-dark rounded-full px-3 py-1.5 border border-border-dark">
-                    <Link
-                        to="/"
-                        className="p-1 rounded-full hover:bg-bg-dark transition-colors"
-                    >
-                        <Home className="h-4 w-4 text-text-secondary" />
-                    </Link>
-
-                    {breadcrumbs.map((crumb, index) => (
-                        <div key={index} className="flex items-center">
-                            <ChevronRight className="h-4 w-4 mx-1 text-border-dark" />
-                            {crumb.path ? (
-                                <Link
-                                    to={crumb.path}
-                                    className="px-2 py-1 text-sm font-medium text-text-secondary hover:text-accent-dark transition-colors"
-                                >
-                                    {crumb.name}
-                                </Link>
-                            ) : (
-                                <span className="px-2 py-1 text-sm font-medium text-text-secondary/60">
-                                    {crumb.name}
-                                </span>
-                            )}
-                        </div>
-                    ))}
+        <div className="mb-10 max-w-7xl flex justify-between items-center">
+            <div className="pb-12">
+                <div className="w-[120px] h-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full mb-4"></div>
+                <div className="flex items-center gap-3">
+                    <BookOpen className="size-[70px] text-indigo-400 mt-1 flex-shrink-0" />
+                    <div>
+                        <h1 className="text-5xl font-bold text-gray-800 font-serif tracking-tight">
+                            {title}
+                        </h1>
+                        <p className="mt-2 text-lg text-gray-400 max-w-3xl leading-relaxed">
+                            {description}
+                        </p>
+                    </div>
                 </div>
-            </nav>
-
-            <div className="relative">
-                <h1 className="text-4xl font-bold text-text-primary font-sans tracking-tight">
-                    {title}
-                </h1>
-                {description && (
-                    <p className="mt-3 text-lg text-text-secondary max-w-3xl">
-                        {description}
-                    </p>
-                )}
-                <div className="absolute -bottom-4 left-0 w-16 h-1 bg-gradient-to-r from-accent-dark to-indigo-400 rounded-full"></div>
             </div>
-        </header>
+            <div>
+                <button
+                    onClick={() => navigate(-1)}
+                    className="p-2 flex items-center gap-2 rounded-3xl hover:bg-gray-100 transition"
+                    aria-label="Go back"
+                >
+                    <ChevronLeft className="h-5 w-5 text-gray-600" /> Go back
+                </button>
+            </div>
+        </div>
     );
 };
 
