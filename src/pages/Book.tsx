@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { useBooks } from "../hooks/useBibleData";
-import { BookOpen, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import BookSkeleton from "../components/Skeleton/BookSkeleton";
 import PageHeader from "../components/PageHeader";
 
