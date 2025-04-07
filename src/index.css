@@ -1,1 +1,42 @@
 @import "tailwindcss";
+
+/* Add to your globals.css */
+@keyframes shimmer {
+    0% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.5;
+    }
+}
+
+.animate-shimmer {
+    animation: shimmer 2s infinite;
+}
+
+.transition-all {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+.hover\:bg-blue-50:hover {
+    background-color: rgba(239, 246, 255, 0.8);
+}
+
+:root {
+    --bg-dark: #121826;
+    --surface-dark: #1e293b;
+    --accent-dark: #7c3aed;
+    --text-primary: #e2e8f0;
+    --text-secondary: #94a3b8;
+    --border-dark: #2d3748;
+    --success: #34d399;
+    --warning: #fbbf24;
+    --error: #f87171; 
+}

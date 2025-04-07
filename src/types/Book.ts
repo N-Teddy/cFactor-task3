@@ -1,5 +1,10 @@
 export interface Book {
-  id: string;
-  name: string;
-  // Add other relevant fields based on the API response
+    id: string;
+    name: string;
+    chapters?: number[];
+    language: {
+        name: string;
+    };
+    books?: number[];
+    abbreviation?: string;
 }

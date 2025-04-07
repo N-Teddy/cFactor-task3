@@ -1,31 +1,62 @@
 import { useParams, Link } from "react-router-dom";
 import { useBooks } from "../hooks/useBibleData";
+import { BookOpen, ChevronRight } from "lucide-react";
+import BookSkeleton from "../components/Skeleton/BookSkeleton";
 
 const BookPage = () => {
-
     const { bibleId } = useParams<{ bibleId: string }>();
-    const { data: books, isLoading, error } = useBooks(bibleId || "");
+    const { data: books, isLoading } = useBooks(bibleId || "");
 
-    if (isLoading) return <div>Loading books...</div>;
-    if (error) return <div>Error loading books.</div>;
 
     return (
+
         <>
-            <div>
-                <h1>Books in the Selected Bible</h1>
-                <ul>
-                    {books?.map((book) => (
-                        <li key={book.id}>
-                            <Link to={`/bibles/${bibleId}/books/${book.id}/chapters`}>
-                                {book.name}
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
+
+            <div className="max-w-7xl mx-auto p-6">
+                <div className="pb-[50px]">
+                    <h1 className="text-3xl font-bold font-serif flex items-center gap-3">
+                        <BookOpen className="text-indigo-400" />
+                        Select a Book
+                    </h1>
+                    <p className="text-gray-400 mt-2">Choose a book to begin reading</p>
+                </div>
+                {
+                    isLoading ? (
+                        <BookSkeleton />
+                    ) : (
+                        < div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                            {books?.map((book) => (
+                                <Link
+                                    to={`/bibles/${bibleId}/books/${book.id}/chapters`}
+                                    key={book.id}
+                                    className="group block transition-all hover:scale-[1.02]"
+                                >
+                                    <div className="bg-gray-800 rounded-lg shadow-sm hover:shadow-lg p-4 border border-gray-700 transition-all h-full flex items-center justify-between">
+                                        <div className="flex items-center space-x-3">
+                                            <div className="h-10 w-10 rounded-full bg-indigo-900/50 flex items-center justify-center text-indigo-400 font-medium">
+                                                {book.abbreviation || book.name.charAt(0)}
+                                            </div>
+                                            <div>
+                                                <h3 className="font-medium text-gray-100 group-hover:text-indigo-400 transition-colors">
+                                                    {book.name}
+                                                </h3>
+                                                <p className="text-sm text-gray-400">
+                                                    {book.chapters?.length || '?'} chapters
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <ChevronRight className="h-5 w-5 text-gray-500 group-hover:text-indigo-400 transition-colors" />
+                                    </div>
+                                </Link>
+                            ))}
+                        </div >
+                    )
+                }
+
             </div>
         </>
-    );
 
-}
+    );
+};
 
 export default BookPage;
